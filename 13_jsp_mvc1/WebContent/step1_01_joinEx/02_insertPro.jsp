@@ -74,7 +74,8 @@
 			pstmt.setString(3, name);
 			
 			//쿼리문 실행
-			pstmt.executeUpdate();
+			pstmt.executeUpdate();	// insert , update , delete쿼리문 실행 메서드 : pstmt.executeUpdate();
+									// 					select쿼리문 실행 메서드  : pstmt.executeQuery();
 	%>
 			<script>
 				alert("회원가입 되었습니다.");
