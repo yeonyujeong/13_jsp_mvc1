@@ -11,18 +11,16 @@
 <title>회원 리스트</title>
 </head>
 <body>
-
 	<%
-	
 		request.setCharacterEncoding("utf-8");
-	
+		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		
-		Connection conn = null;
+	
+		Connection conn 		= null;
 		PreparedStatement pstmt = null;
-		ResultSet rs = null;
+		ResultSet rs 			= null;
 		
-		try{
+		try {
 			
 			Class.forName("com.mysql.jdbc.Driver");
 			
@@ -34,7 +32,6 @@
 			
 			pstmt = conn.prepareStatement("select * from member");
 			rs = pstmt.executeQuery();
-			
 	%>
 			<h2>회원 리스트</h2>
 			<table border="1">
@@ -44,35 +41,35 @@
 					<th>NAME</th>
 					<th>JOIN DATE</th>
 				</tr>
-	<%
-			while(rs.next()){	//반환된 결과물이 있는 만큼 반복
-				String rId 		 = rs.getString("id"); 							// id 컬럼
-				String rPassWd   = rs.getString("passwd");						// passwd 컬럼
-				String rName     = rs.getString("name");						// name 컬럼
-				String rDate	 = sdf.format(rs.getTimestamp("joindate"));		// joindate 컬럼
+	<% 
+			while (rs.next()) {	// 반환된 결과물이 있는 만큼 반복
+				String rId 		 = rs.getString("id");   					// id 컬럼
+				String rPassword = rs.getString("passwd");					// passwd 컬럼
+				String rName 	 = rs.getString("name");					// name 컬럼
+				String rDate	 = sdf.format(rs.getTimestamp("joindate"));	// joindate 컬럼
+				
 	%>
-	
-			<tr>
-				<td><%=rId %></td>
-				<td><%=rPassWd %></td>
-				<td><%=rName %></td>
-				<td><%=rDate %></td>
-			</tr>
-	<%			
+				<tr>
+					<td><%=rId %></td>
+					<td><%=rPassword %></td>
+					<td><%=rName %></td>
+					<td><%=rDate %></td>
+				</tr>
+	<%
 			}
-	
-	%>			
-			</table>
-	<%		
+	%>	
+			</table>	
+	<% 	
 			
-		}catch (Exception e){
+		} catch(Exception e) {
 			e.printStackTrace();
-		}finally{
-			if(rs    != null) try {rs.close();}    catch (Exception e){}
-			if(pstmt != null) try {pstmt.close();} catch (Exception e){}
-			if(conn  != null) try {conn.close();}  catch (Exception e){}				
+		} finally {
+			if (rs != null)    try {rs.close();} catch (Exception e){}
+			if (pstmt != null) try {pstmt.close();} catch (Exception e){}
+			if (conn != null)  try {conn.close();} catch (Exception e){}	
 		}
-	
+		
+		
 	%>
 
 </body>

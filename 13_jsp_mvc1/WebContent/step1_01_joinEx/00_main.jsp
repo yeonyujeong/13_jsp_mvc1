@@ -1,10 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>main</title>
 </head>
 <body>
 
@@ -26,6 +25,7 @@
 		SELECT * FROM MEMBER;
 
  	--%>
+
 
 	<p><a href="01_insert.jsp">회원가입</a></p>
 	<p><a href="03_delete.jsp">회원삭제</a></p>

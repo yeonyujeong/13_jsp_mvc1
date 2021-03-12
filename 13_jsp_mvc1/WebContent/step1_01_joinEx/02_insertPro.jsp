@@ -1,8 +1,7 @@
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.Connection"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,8 +9,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-
 
 	<%-- 
 	
@@ -31,69 +28,74 @@
 		2) Class.forName 작성
 		3) Connection 객체를 작성
 		4) Connection 객체로 PrepareStatement 객체를 생성한 후 쿼리문을 실행
-		
 	
 	--%>
 	
-	<%
-	
+	<% 
+		
 		request.setCharacterEncoding("utf-8");
 	
-		//데이터베이스를 연결하기 위한 객체
+		// 데이터베이스를 연결하기 위한 객체
 		Connection conn = null;
 		
-		//쿼리문을 실행하기 위한 객체
+		// 쿼리문을 실행하기 위한 객체
 		PreparedStatement pstmt = null;
 		
-		try {
-
-			//연결 드라이버 설정
-			Class.forName("com.mysql.jdbc.Driver");
 		
-			//데이터베이스 연동
+		try {
+		
+			// 연결 드라이버 설정
+			Class.forName("com.mysql.jdbc.Driver");
 			
-			//DB 연결 url > jdbc://mysql://연결db서버주소:연결포트/데이터베이스명/시간동기화
+			// 데이터 베이스 연동
+			
+			// DB 연결 url > jdbc://mysql://연결db서버주소:연결포트/데이터베이스명/시간동기화
 			String jdbcUrl = "jdbc:mysql://localhost:3306/login_ex?serverTimezone=UTC";
-			//DB 연결 Id
-			String dbId = "root";
-			//DB 연결 Pw
-			String dbPass = "1234";
+			// DB 연결 Id
+			String dbId    = "root";
+			// DB 연결 Password
+			String dbPass  = "1234";
 			
 			conn = DriverManager.getConnection(jdbcUrl, dbId, dbPass);
 			
-			//선처리문 쿼리 작성 (먼저 쿼리문의 형식이 작성되고 후에 값을 대입하는 형식)
+			// 선처리문 쿼리 작성 ( 먼저 쿼리문의 형식이 작성되고 후에 값을 대입하는 형식 )
 			String sql = "insert into member values(?,?,?,now())";
-			String id = request.getParameter("id");
-			String passwd = request.getParameter("passwd");
-			String name = request.getParameter("name");
+			String id      = request.getParameter("id");
+			String passwd  = request.getParameter("passwd");
+			String name    = request.getParameter("name");
 			
-			//쿼리문 완성
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, id);
-			pstmt.setString(2, passwd);
-			pstmt.setString(3, name);
+			// 쿼리문 완성
+			pstmt = conn.prepareStatement(sql);	// "insert into member values(?,?,?,now())";
+			pstmt.setString(1, id);				// "insert into member values(id,?,?,now())";
+			pstmt.setString(2, passwd);			// "insert into member values(id,passwd,?,now())";
+			pstmt.setString(3, name);			// "insert into member values(id,passwd,name,now())";
 			
-			//쿼리문 실행
+			// 쿼리문 실행
 			pstmt.executeUpdate();	// insert , update , delete쿼리문 실행 메서드 : pstmt.executeUpdate();
-									// 					select쿼리문 실행 메서드  : pstmt.executeQuery();
+									// select쿼리문 실행 메서드                   : pstmt.executeQuery();
+			
 	%>
 			<script>
 				alert("회원가입 되었습니다.");
 				location.href="00_main.jsp";
 			</script>
 	<% 		
-		}catch (Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
-		}finally{
-			//데이터베이스 연결 종료
+		} finally {
+			
+			// 데이터베이스 연결 종료
 			if(pstmt != null) try {pstmt.close();} catch (Exception e){}
-			if(conn != null)  try {conn.close();} catch (Exception e){}
-		
+			if(conn != null)  try {conn.close();} catch (Exception e){}		
 			
 		}
-		
-		
+	
 	%>
 	
+	
+	
+	
+	
+
 </body>
 </html>

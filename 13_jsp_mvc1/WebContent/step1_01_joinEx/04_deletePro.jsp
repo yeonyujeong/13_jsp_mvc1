@@ -2,8 +2,7 @@
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.Connection"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,10 +10,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-	
-	<%
+
+	<% 
 		request.setCharacterEncoding("utf-8");
-		
+	
 		String id 	  = request.getParameter("id");
 		String passwd = request.getParameter("passwd");
 	
@@ -36,43 +35,46 @@
 			pstmt.setString(1, id);
 			pstmt.setString(2, passwd);
 			
-			rs = pstmt.executeQuery();		//select문의 결과를 저장할 객체
+			rs = pstmt.executeQuery();	// select문의 결과를 저장할 객체
 			
-			if(rs.next()){	//rs.next() : 반환된 결과물이 있으면
+			if (rs.next()) { // rs.next(); 반환된 결과물이 있으면
 				
 				String sql = "delete from member where id=?";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, id);
 				pstmt.executeUpdate();
-				%>
-					<script>
-						alert("회원 탈퇴되었습니다.");
-						location.href = "00_main.jsp";
-					</script>
-				<%
-					
+		%>
+				<script>
+					alert("회원 탈퇴었습니다.");
+					location.href = "00_main.jsp";
+				</script>
+		<% 	
+				
 			}
-			else{
+			else {
 				
-				%>			
-					<script>
-						alert("아이디와 비밀번호를 확인하세요");
-						history.go(-1);		//한페이지 이전으로 이동
-					</script>
-				<%
+		%>
+				<script>
+					alert("아이디와 비밀번호를 확인하세요.");
+					history.go(-1);		// 한페이지 이전으로 이동
+				</script>
+		<% 	
 				
-				}
+			}
 			
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				if(rs != null) try {rs.close();} catch (Exception e){}
-				if(pstmt != null) try {pstmt.close();} catch (Exception e){}
-				if(conn != null)  try {conn.close();} catch (Exception e){}		
-			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null)    try {rs.close();} catch (Exception e){}
+			if (pstmt != null) try {pstmt.close();} catch (Exception e){}
+			if (conn != null)  try {conn.close();} catch (Exception e){}		
+		}
 		
-	%>
+		
 	
+	%>
+
+
+
 </body>
 </html>
