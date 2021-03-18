@@ -147,6 +147,7 @@ public class BoardDAO {
 		
 		try {
 			
+			conn = getConnection();
 			pstmt = conn.prepareStatement("SELECT * FROM BOARD WHERE NUM=?");
 			pstmt.setInt(1, bNum);
 			rs = pstmt.executeQuery();
