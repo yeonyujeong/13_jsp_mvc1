@@ -45,6 +45,10 @@
 				<td><input type="text" name="subject" value="<%=bdto.getSubject()%>"></td>
 			</tr>
 			<tr>
+				<td>비밀번호</td>
+				<td><input type="password" name="password"></td>
+			</tr>
+			<tr>
 				<td>글내용</td>
 				<td><textarea rows="10" cols="60" name="content"><%=bdto.getContent() %></textarea></td>
 			</tr>
