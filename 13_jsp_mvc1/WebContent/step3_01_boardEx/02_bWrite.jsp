@@ -8,6 +8,7 @@
 <body>
 
 	<form action="03_bWritePro.jsp" method="post">
+		<h1>게시글 쓰기</h1>
 		<table border="1">
 			<colgroup>
 				<col width="20%">

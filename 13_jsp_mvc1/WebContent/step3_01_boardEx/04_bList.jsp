@@ -35,6 +35,9 @@
 			}
 		%>
 	</table>
+	<p>
+		<input type="button" value="글쓰기" onclick="location.href='02_bWrite.jsp'">
+	</p>
 
 	
 	

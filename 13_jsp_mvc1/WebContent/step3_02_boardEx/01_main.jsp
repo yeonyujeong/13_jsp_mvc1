@@ -3,9 +3,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>01_main</title>
+<link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css">
 </head>
-<body>
 <%--
 
 	CREATE DATABASE STEP3_BOARD_EX;
@@ -27,12 +27,10 @@
 
 --%>
 
-	<img src="../img/jsp.PNG" alt="jsp심볼" width="400" height="400"><br><br>
-	<input type="button" value="게시판 보기" onclick="location.href='04_bList.jsp'">
-	
-
-
-
-
+<body>
+	<div align="center" style="padding-top: 100px">
+		<img src="../img/jsp.PNG" alt="jsp심볼" width="800px" height="500px"><br><br><br><br>
+		<input type="button" value="게시판 보기" class="btn btn-primary" onclick="location.href='04_bList.jsp'">
+	</div>
 </body>
 </html>

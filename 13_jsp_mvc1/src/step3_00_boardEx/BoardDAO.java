@@ -176,4 +176,94 @@ public class BoardDAO {
 	}
 	
 	
+	// 비밀번호를 인증하는 DAO
+	public boolean validMemberCheck(BoardDTO boardDTO) {
+		
+		boolean isValidMember = false;
+		
+		try {
+			
+			conn = getConnection();
+			pstmt = conn.prepareStatement("SELECT * FROM BOARD WHERE NUM=? AND PASSWORD=?");
+			pstmt.setInt(1, boardDTO.getNum());
+			pstmt.setString(2, boardDTO.getPassword());
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				isValidMember = true;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally{
+			if(rs != null)    try {rs.close();}    catch (SQLException e) {e.printStackTrace();}
+			if(pstmt != null) try {pstmt.close();} catch (SQLException e) {e.printStackTrace();}
+			if(conn != null)  try {conn.close();}  catch (SQLException e) {e.printStackTrace();}
+		}
+		
+		return isValidMember;
+	}
+	
+	// 게시글을 수정하는 DAO
+	public boolean updateBoard(BoardDTO boardDTO) {
+		
+		boolean isUpdate = false;
+		
+		try {
+			
+			if(validMemberCheck(boardDTO)) {
+				
+				conn = getConnection();
+				pstmt = conn.prepareStatement("UPDATE BOARD SET SUBJECT=? , CONTENT=? WHERE NUM=?");
+				pstmt.setString(1, boardDTO.getSubject());
+				pstmt.setString(2, boardDTO.getContent());
+				pstmt.setInt(3, boardDTO.getNum());
+				pstmt.executeUpdate();
+				isUpdate = true;
+				System.out.println("board 테이블이 업데이트 되었습니다.");
+				System.out.println(boardDTO.getNum() + "/" + boardDTO.getWriter() + "/" + boardDTO.getSubject());
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally{
+			if(pstmt != null) try {pstmt.close();} catch (SQLException e) {e.printStackTrace();}
+			if(conn != null)  try {conn.close();}  catch (SQLException e) {e.printStackTrace();}
+		}
+		
+		return isUpdate;
+		
+	}
+	
+	// 게시글을 삭제하는 DAO
+	public boolean deleteBoard(BoardDTO boardDTO) {
+		
+		boolean isDelete = false;
+		
+		try {
+			
+			if(validMemberCheck(boardDTO)) {
+				
+				conn = getConnection();
+				pstmt = conn.prepareStatement("DELETE FROM BOARD WHERE NUM=?");
+				pstmt.setInt(1, boardDTO.getNum());
+				pstmt.executeUpdate();
+				isDelete = true;
+				System.out.println("board 테이블의 멤버가 삭제되었습니다.");
+				System.out.println(boardDTO.getNum() + "/" + boardDTO.getWriter() + "/" + boardDTO.getSubject());
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally{
+			if(pstmt != null) try {pstmt.close();} catch (SQLException e) {e.printStackTrace();}
+			if(conn != null)  try {conn.close();}  catch (SQLException e) {e.printStackTrace();}
+		}
+		
+		return isDelete;
+		
+		
+	}
+	
+	
 }
